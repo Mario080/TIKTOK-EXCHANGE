@@ -1,565 +1,266 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok Live Rewards Wallet</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: #f7f9fa;
-            color: #121212;
-            margin: 0;
-            padding: 10px 10px 40px 10px; /* Ditambahkan padding bawah agar lebih longgar */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-        .container {
-            width: 100%;
-            max-width: 480px;
-            background: #ffffff;
-            border-radius: 32px;
-            padding: 28px 24px;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.08);
-            box-sizing: border-box;
-            position: relative;
-        }
-        h2 {
-            text-align: center;
-            font-size: 17px;
-            color: #555;
-            margin-bottom: 4px;
-            font-weight: 500;
-        }
-        .balance-section {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        .balance {
-            font-size: 36px;
-            font-weight: 700;
-            color: #111;
-            margin-bottom: 2px;
-        }
-        .sub-balance {
-            font-size: 13px;
-            color: #fe2c55;
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-        .tiktok-coin-img {
-            width: 18px;
-            height: 18px;
-            vertical-align: middle;
-            object-fit: contain;
-            margin-right: 2px;
-        }
-        .balance-policy {
-            font-size: 12px;
-            color: #888;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Blashkin Space — rumah bagi studio spesialis brow, lash, waxing, dan intimate care." />
+  <title>Blashkin Space — A Beauty Specialist Group</title>
+  <link rel="icon" type="image/png" href="assets/logos/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { ivory: '#F9F6F0', ink: '#1A1A1A', taupe: '#8C7A6B', line: '#E5E2DC' }, fontFamily: { display: ['Playfair Display', 'serif'], body: ['Plus Jakarta Sans', 'sans-serif'] }, boxShadow: { editorial: '0 20px 60px rgba(55, 42, 30, .09)' } } }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400; overflow-x: hidden; background: #F9F6F0; color: #1A1A1A; }
+    h1, h2, h3, .font-display { font-family: 'Playfair Display', serif; font-weight: 700; }
+    p { font-weight: 300; }
+    .font-display em, em.font-display { font-weight: 400; }
+    .grain { background-image: radial-gradient(rgba(26,26,26,.12) .55px, transparent .55px); background-size: 8px 8px; }
+    .hero-orb { filter: blur(1px); animation: drift 9s ease-in-out infinite alternate; }
+    .hero-editorial { position: relative; min-height: clamp(27rem, 47vw, 35.5rem); height: 100%; overflow: hidden; border: 1px solid rgba(255,255,255,.9); border-radius: 2rem; background: linear-gradient(145deg, #d8c9b8, #857262); box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 28px 60px rgba(62,48,34,.18); }
+    .hero-editorial::after { content: ''; position: absolute; inset: 0; background: linear-gradient(150deg, rgba(255,255,255,.2), transparent 40%, rgba(26,26,26,.12)); pointer-events: none; }
+    .hero-editorial img { height: 100%; width: 100%; object-fit: cover; opacity: .88; }
+    .floating-badge { position: absolute; right: -1.1rem; bottom: 2rem; z-index: 2; width: 9.5rem; border: 1px solid rgba(255,255,255,.9); border-radius: 9999px; background: rgba(249,246,240,.9); padding: 1.15rem; box-shadow: 0 14px 35px rgba(62,48,34,.17), inset 0 1px 0 #fff; backdrop-filter: blur(18px); transform: rotate(8deg); animation: floatBadge 5.5s ease-in-out infinite; transition: transform .35s ease, box-shadow .35s ease; }
+    .hero-editorial:hover .floating-badge { transform: translateY(-7px) rotate(4deg) scale(1.04); box-shadow: 0 20px 38px rgba(62,48,34,.25), inset 0 1px 0 #fff; }
+    @keyframes floatBadge { 50% { margin-bottom: .6rem; } }
+    .about-accent { border-left: 1px solid #8C7A6B; padding-left: 1.25rem; }
 
-        .form-group {
-            margin-bottom: 18px;
-            position: relative;
-        }
-        label {
-            font-size: 15px;
-            color: #222;
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        
-        .input-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        .input-wrapper span {
-            position: absolute;
-            left: 16px;
-            color: #555;
-            font-size: 16px;
-            font-weight: 600;
-        }
-        .input-wrapper input {
-            padding-left: 36px;
-        }
+    /* COLLECTIVE BRANDS STYLING */
+    #brand article { background-size: cover; background-position: center; isolation: isolate; position: relative; overflow: hidden; }
+    #brand article::after { content: ''; position: absolute; z-index: 0; inset: 0; border-radius: inherit; background: linear-gradient(180deg, rgba(249,246,240,.6) 0%, rgba(249,246,240,.2) 50%, rgba(249,246,240,.9) 100%); pointer-events: none; }
+    #brand article > * { position: relative; z-index: 1; }
+    #brand article:nth-child(1) { background-image: url('assets/brands/brand-1.jpg'); }
+    #brand article:nth-child(2) { background-image: url('assets/brands/brand-2.jpg'); }
+    #brand article:nth-child(3) { background-image: url('assets/brands/brand-3.jpg'); }
+    #brand article:nth-child(4) { background-image: url('assets/brands/brand-4.jpg'); }
 
-        input {
-            width: 100%;
-            padding: 16px;
-            background: #f1f2f5;
-            border: 1px solid #e1e3e6;
-            border-radius: 14px;
-            color: #111;
-            font-size: 16px;
-            font-family: 'Outfit', sans-serif;
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        input:focus {
-            border-color: #fe2c55;
-            background: #fff;
-        }
-        
-        /* Dropdown Search */
-        .search-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: #fff;
-            border: 1px solid #e1e3e6;
-            border-radius: 14px;
-            margin-top: 5px;
-            z-index: 10;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        .search-item {
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            cursor: pointer;
-            border-bottom: 1px solid #f1f2f5;
-            transition: background 0.2s;
-        }
-        .search-item:hover {
-            background: #f7f9fa;
-        }
-        .search-item img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .search-item .s-text {
-            font-size: 15px;
-            font-weight: 600;
-            color: #111;
-        }
-        .search-item .s-sub {
-            font-size: 13px;
-            color: #777;
-        }
+    /* 3 LOGO BULAT UKURAN BESAR BERJEJER DI BAWAH HERO (Disertai transform scale agar logo tampil besar pas) */
+    .hero-logo-group { display: flex; align-items: center; gap: 1rem; margin-top: 2rem; }
+    .hero-logo-circle { width: 4.75rem; height: 4.75rem; border-radius: 9999px; background: #FFFFFF; display: grid; place-items: center; border: 1px solid rgba(229,226,220,0.9); box-shadow: 0 6px 20px rgba(62,48,34,0.08); overflow: hidden; transition: transform .3s ease; }
+    .hero-logo-circle:hover { transform: translateY(-4px); }
+    .hero-logo-circle img { width: 2.75rem; height: 2.75rem; object-fit: contain; transform: scale(1.35); }
 
-        .policy-text {
-            font-size: 12px;
-            color: #777;
-            line-height: 1.5;
-            margin-bottom: 24px;
-            text-align: left;
-        }
-        .policy-link {
-            color: #1877f2;
-            font-weight: 600;
-            cursor: pointer;
-        }
+    /* LOGO BULAT BESAR DI CARD LOKASI */
+    .location-logo-circle { width: 3.5rem; height: 3.5rem; border-radius: 9999px; background: #FFFFFF; display: grid; place-items: center; border: 1px solid rgba(229,226,220,0.9); box-shadow: 0 4px 12px rgba(62,48,34,0.08); overflow: hidden; flex-shrink: 0; }
+    .location-logo-circle img { width: 2rem; height: 2rem; object-fit: contain; transform: scale(1.35); }
 
-        .btn {
-            width: 100%;
-            padding: 16px;
-            background: #fe2c55;
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-size: 17px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-            box-shadow: 0 4px 15px rgba(254, 44, 85, 0.3);
-        }
-        .btn:hover {
-            background: #e91e43;
-        }
+    /* REELS HORIZONTAL SLIDER & PLAY BUTTON DI TENGAH */
+    .reels-container { display: flex; overflow-x: auto; gap: 1rem; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; padding-bottom: 1rem; }
+    .reels-container::-webkit-scrollbar { display: none; }
+    .reel-card { flex: 0 0 240px; scroll-snap-align: start; }
+    .reel-cover { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; opacity: .85; transition: transform .7s ease; }
+    .reel:hover .reel-cover { transform: scale(1.06); }
 
-        /* PIN Screen */
-        .pin-screen {
-            display: none;
-            text-align: center;
-            padding: 20px 0;
-        }
-        .pin-inputs {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 24px 0;
-        }
-        .pin-box {
-            width: 48px;
-            height: 54px;
-            font-size: 24px;
-            text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 12px;
-            background: #f1f2f5;
-            outline: none;
-            font-weight: 700;
-            color: #111;
-        }
-        .pin-box:focus {
-            border-color: #fe2c55;
-            background: #fff;
-        }
-
-        /* Loading Screen */
-        .loading-screen {
-            display: none;
-            text-align: center;
-            padding: 50px 0;
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f1f2f5;
-            border-top: 4px solid #fe2c55;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Success Screen */
-        .success-screen {
-            display: none;
-            text-align: center;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-        .success-icon {
-            width: 70px;
-            height: 70px;
-            background: #27ae60;
-            color: white;
-            font-size: 36px;
-            line-height: 70px;
-            border-radius: 50%;
-            margin: 0 auto 18px auto;
-            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
-            animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-        }
-        @keyframes bounceIn {
-            0% { transform: scale(0); opacity: 0; }
-            60% { transform: scale(1.15); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        .success-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #111;
-        }
-        .success-subtitle {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 22px;
-        }
-        .details-box {
-            background: #f7f9fa;
-            border-radius: 14px;
-            padding: 18px;
-            text-align: left;
-            font-size: 15px;
-            margin-bottom: 24px;
-            border: 1px solid #e1e3e6;
-        }
-        .details-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-        .details-row:last-child {
-            margin-bottom: 0;
-        }
-        .label-detail {
-            color: #666;
-        }
-        .highlight-red {
-            font-weight: 600;
-            color: #fe2c55;
-        }
-        .highlight-bold {
-            font-weight: 600;
-            color: #111;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-    </style>
+    @keyframes drift { to { transform: translate(2.5rem, -1.5rem) scale(1.08); } }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .nav-link::after { content: ''; display: block; width: 0; height: 1px; background: #8C7A6B; transition: width .25s ease; margin-top: 3px; }
+    .nav-link:hover::after { width: 100%; }
+    .placeholder { background: linear-gradient(140deg, #e7dfd3, #c9b9a7); }
+    .glossy-nav { background: linear-gradient(105deg, rgba(249,246,240,.92), rgba(255,255,255,.68), rgba(249,246,240,.88)); box-shadow: 0 9px 30px rgba(62,48,34,.06); backdrop-filter: blur(24px); }
+    .glossy-card { position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(255,255,255,.86), rgba(255,255,255,.45)); border-color: rgba(255,255,255,.85); box-shadow: inset 0 1px 0 rgba(255,255,255,.92), inset 0 -1px 0 rgba(140,122,107,.10), 0 10px 20px rgba(62,48,34,.05), 0 26px 55px rgba(62,48,34,.09); backdrop-filter: blur(24px); }
+    .depth-card { transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease, border-color .45s ease; transform: translateZ(0); }
+    .depth-card:hover { transform: translateY(-9px) scale(1.01); box-shadow: inset 0 1px 0 rgba(255,255,255,.96), 0 15px 28px rgba(62,48,34,.07), 0 32px 70px rgba(62,48,34,.16); }
+    .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
+    .faq-answer > div { overflow: hidden; }
+    .faq-open .faq-answer { grid-template-rows: 1fr; }
+    .faq-open .faq-icon { transform: rotate(45deg); }
+    /* Penyesuaian layar kecil: frame, lencana, dan card tetap nyaman tanpa overflow. */
+    @media (min-width: 1024px) { .hero-editorial { min-height: 0; } }
+    @media (max-width: 1023px) { .hero-editorial { min-height: 24rem; } }
+    @media (max-width: 639px) {
+      .hero-editorial { min-height: 21rem; border-radius: 1.5rem; }
+      .floating-badge { right: .75rem; bottom: .75rem; width: 7.75rem; padding: .85rem; }
+      #brand article { min-height: 18rem; }
+      #brand img[src*="assets/logos/"] { width: 5rem !important; height: 3.25rem !important; }
+      .reel-card { flex-basis: 72vw; }
+    }
+  </style>
 </head>
-<body>
-
-<div class="container">
-    <!-- Form View -->
-    <div id="form-view">
-        <h2>TikTok Coins Balance</h2>
-        <div class="balance-section">
-            <div class="balance" id="display-balance">$54,681,922.30</div>
-            <div class="sub-balance" id="sub-balance-text">= $54,681,922.30 (<img src="coin.png" class="tiktok-coin-img" alt="coin"> 4,519,167,132)</div>
-            <div class="balance-policy">Available balance to exchange the Coins</div>
-        </div>
-        
-        <div class="form-group">
-            <label>TikTok username</label>
-            <div class="input-wrapper">
-                <span>@</span>
-                <!-- Ditambahkan autocomplete="off" untuk mencegah munculnya teks domain vercel -->
-                <input type="text" id="target-user" placeholder="your TikTok username" autocomplete="off" autocapitalize="off" spellcheck="false" oninput="handleSearch(this.value)">
-            </div>
-            
-            <div class="search-dropdown" id="search-dropdown">
-                <div id="account-suggestions"></div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Number of coins</label>
-            <input type="text" id="coin-amount" placeholder="0" inputmode="numeric" pattern="[0-9]*" autocomplete="off" oninput="formatCoinInput(this)">
-        </div>
-
-        <div class="policy-text">
-            Coins acquired through this exchange are subject to the Virtual Items Policy. Since you are accepting earnings in the form of Coins, this exchange is also subject to our <span class="policy-link">Rewards Policy</span>. This exchange cannot be reversed.
-        </div>
-
-        <button class="btn" onclick="validasiForm()">Exchange</button>
+<body class="antialiased selection:bg-taupe selection:text-white">
+  <header class="glossy-nav sticky top-0 z-50 border-b border-line/80">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8" aria-label="Navigasi utama">
+      <a href="#beranda" class="leading-none" aria-label="Blashkin Space, kembali ke beranda">
+        <span class="block text-sm font-bold tracking-[.19em]">BLASHKIN SPACE</span>
+        <span class="mt-1 block text-[8px] uppercase tracking-[.18em] text-taupe">A Beauty Specialist Group</span>
+      </a>
+      <div class="hidden items-center gap-6 text-[11px] font-medium lg:flex">
+        <a class="nav-link" href="#beranda">Beranda</a><a class="nav-link" href="#tentang">Tentang Kami</a><a class="nav-link" href="#brand">Brand Kami</a><a class="nav-link" href="#layanan">Layanan &amp; Paket Hemat</a><a class="nav-link" href="#journal">Journal &amp; Reels</a><a class="nav-link" href="#lokasi">Lokasi Studio</a>
+      </div>
+      <a href="#lokasi" class="hidden rounded-full bg-ink px-5 py-3 text-[11px] font-bold text-white transition hover:bg-taupe sm:inline-block">Book Now</a>
+      <button id="menu-button" class="grid h-10 w-10 place-items-center rounded-full border border-line lg:hidden" aria-label="Buka menu" aria-expanded="false"><span class="text-xl leading-none">☰</span></button>
+    </nav>
+    <div id="mobile-menu" class="hidden border-t border-line px-5 py-5 lg:hidden">
+      <div class="grid gap-4 text-sm font-semibold"><a href="#beranda">Beranda</a><a href="#tentang">Tentang Kami</a><a href="#brand">Brand Kami</a><a href="#layanan">Layanan &amp; Paket Hemat</a><a href="#journal">Journal &amp; Reels</a><a href="#lokasi">Lokasi Studio</a><a href="#lokasi" class="mt-1 w-fit rounded-full bg-ink px-5 py-3 text-xs text-white">Book Now</a></div>
     </div>
+  </header>
 
-    <!-- PIN Screen -->
-    <div class="pin-screen" id="pin-view">
-        <h3 style="margin-top:0; color:#111; font-size: 20px;">Enter Security PIN</h3>
-        <p style="font-size: 14px; color: #666;">Please enter your 6-digit wallet PIN</p>
-        
-        <div class="pin-inputs">
-            <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" id="p1" oninput="moveFocus(this, 'p2')" autocomplete="off">
-            <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" id="p2" oninput="moveFocus(this, 'p3')" autocomplete="off">
-            <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" id="p3" oninput="moveFocus(this, 'p4')" autocomplete="off">
-            <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" id="p4" oninput="moveFocus(this, 'p5')" autocomplete="off">
-            <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" id="p5" oninput="moveFocus(this, 'p6')" autocomplete="off">
-            <input type="password" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="pin-box" id="p6" oninput="verifikasiPin(this)" autocomplete="off">
+  <main>
+    <section id="beranda" class="relative isolate overflow-hidden border-b border-line px-5 pb-16 pt-16 sm:pt-24 lg:px-8 lg:pb-24">
+      <div class="hero-orb absolute -right-36 top-8 -z-10 h-80 w-80 rounded-full bg-[#ded1c0] opacity-70 sm:right-8"></div><div class="grain absolute inset-0 -z-10 opacity-[.18]"></div>
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.2fr_.8fr] lg:items-stretch">
+        <div class="reveal">
+          <p class="mb-5 text-[11px] font-bold uppercase tracking-[.22em] text-taupe">A Beauty Specialist Group · Indonesia</p>
+          <h1 class="max-w-4xl font-display text-5xl leading-[.98] tracking-[-.045em] sm:text-7xl lg:text-8xl">Your Beauty,<br /><em class="font-medium">Our Speciality.</em></h1>
+          <p class="mt-7 max-w-xl text-sm leading-7 text-ink/70 sm:text-base">Satu ruang kolektif untuk standar perawatan yang terjaga—dari detail alis dan bulu mata hingga perawatan tubuh yang membuat Anda merasa sepenuhnya nyaman.</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#layanan" class="rounded-full bg-ink px-6 py-3.5 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:bg-taupe">Explore Treatments</a>
+            <a href="#lokasi" class="rounded-full border border-ink px-6 py-3.5 text-xs font-bold transition hover:-translate-y-0.5 hover:bg-white">Find Nearest Studio</a>
+          </div>
+
+          <!-- 3 LOGO BULAT UKURAN BESAR BERJEJER TANPA TULISAN DI BAWAH TOMBOL -->
+          <div class="hero-logo-group">
+            <div class="hero-logo-circle" title="Blashkin"><img src="assets/logos/logo-blashkin.png" alt="Blashkin" onerror="this.style.display='none'" /></div>
+            <div class="hero-logo-circle" title="Waxroom"><img src="assets/logos/logo-waxroom.png" alt="Waxroom" onerror="this.style.display='none'" /></div>
+            <div class="hero-logo-circle" title="Blinks"><img src="assets/logos/logo-blinks.png" alt="Blinks" onerror="this.style.display='none'" /></div>
+          </div>
+        </div>
+        <div class="reveal hero-editorial">
+          <img src="assets/hero/hero-main.jpg" alt="Ritual perawatan Blashkin Space" />
+          <div class="absolute left-6 top-6 z-10 max-w-[13rem] rounded-2xl border border-white/60 bg-ink/70 p-4 text-ivory backdrop-blur-xl"><p class="text-[10px] font-bold uppercase tracking-[.16em] text-[#e5d7c7]">The Blashkin Edit</p><p class="mt-2 font-display text-xl leading-tight">Beauty is in the <em>detail.</em></p></div>
+          <div class="floating-badge text-center"><p class="font-display text-2xl leading-none">04</p><p class="mt-2 text-[8px] font-bold uppercase tracking-[.14em] text-taupe">Specialist<br />Studios</p></div>
+        </div>
+      </div>
+      <div class="mx-auto mt-16 flex max-w-7xl flex-col items-center gap-5 border-y border-line py-6 sm:flex-row sm:justify-between">
+        <div class="flex items-center gap-3"><img src="assets/logos/logo-blashkinspace.png" alt="Blashkin Space" style="height: 1.75rem; width: auto;" /><span class="font-display text-xl">Blashkin <em>Space</em></span></div>
+        <span class="hidden h-px w-12 bg-taupe sm:block"></span><span class="text-center text-xs font-semibold tracking-wide text-taupe">BLASHKIN</span><span class="text-center text-xs font-semibold tracking-wide text-taupe">WAXROOM</span><span class="text-center text-xs font-semibold tracking-wide text-taupe">BLINKS · SOLO</span><span class="text-center text-xs font-semibold tracking-wide text-taupe">BLINKS · SEMARANG</span>
+      </div>
+    </section>
+
+    <section id="tentang" class="glossy-card mx-auto my-10 max-w-7xl rounded-[2rem] px-5 py-20 lg:my-14 lg:px-8 lg:py-28"><div class="reveal grid gap-9 lg:grid-cols-[.9fr_1.1fr] lg:gap-16"><div class="about-accent"><p class="text-[11px] font-bold uppercase tracking-[.22em] text-taupe">01 · Tentang Kami</p><p class="mt-8 max-w-xs font-display text-2xl leading-snug text-ink/80">“Setiap detail dirawat oleh spesialis yang benar-benar <em>memahaminya.</em>”</p><div class="mt-7 h-px w-16 bg-taupe"></div></div><div><h2 class="max-w-3xl font-display text-4xl leading-tight sm:text-5xl">Keahlian yang spesifik, pengalaman yang <em>menyeluruh.</em></h2><p class="mt-7 max-w-2xl text-sm leading-7 text-taupe sm:text-base">Blashkin Space menaungi studio-studio spesialis yang berdiri dengan karakter dan fokusnya sendiri. Kami percaya setiap treatment layak ditangani oleh tangan yang mendalami bidangnya—tanpa mengabaikan keramahan, higienitas, dan standar kualitas yang konsisten di setiap kunjungan.</p></div></div></section>
+
+    <section id="brand" class="border-y border-line bg-[#f3eee6] px-5 py-20 lg:px-8"><div class="mx-auto max-w-7xl"><div class="reveal flex flex-wrap items-end justify-between gap-5"><div><p class="text-[11px] font-bold uppercase tracking-[.22em] text-taupe">02 · The Collective Brands</p><h2 class="mt-3 font-display text-4xl sm:text-5xl">Brand kami, <em>keahlian Anda.</em></h2></div><p class="max-w-sm text-sm leading-6 text-ink/65">Setiap cabang dirancang sebagai studio spesialis dengan pengalaman reservasi yang sederhana.</p></div>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <!-- COLLECTIVE BRANDS (Tanpa Logo di dalam Card) -->
+        <article class="glossy-card depth-card reveal group flex min-h-[320px] flex-col rounded-3xl border p-6 justify-between"><div class="mt-auto"><p class="font-display text-2xl">Blashkin</p><p class="mt-2 font-display text-xs italic leading-5 text-taupe">Jogja · Brow &amp; Lash Specialist</p><a target="_blank" rel="noopener" href="https://blashkingroup.glossify.id/booking/blashkinStudioConcatJogja" class="mt-5 inline-flex text-xs font-bold underline underline-offset-4">Reservasi Blashkin ↗</a></div></article>
+        <article class="glossy-card depth-card reveal group flex min-h-[320px] flex-col rounded-3xl border p-6 justify-between"><div class="mt-auto"><p class="font-display text-2xl">Waxroom</p><p class="mt-2 font-display text-xs italic leading-5 text-taupe">Jogja · Waxing &amp; Intimate Care</p><a target="_blank" rel="noopener" href="https://blashkingroup.glossify.id/booking/waxroomByBlashkin" class="mt-5 inline-flex text-xs font-bold underline underline-offset-4">Reservasi Waxroom ↗</a></div></article>
+        <article class="glossy-card depth-card reveal group flex min-h-[320px] flex-col rounded-3xl border p-6 justify-between"><div class="mt-auto"><p class="font-display text-2xl">Blinks Brow Bar</p><p class="mt-2 font-display text-xs italic leading-5 text-taupe">Solo · Brow &amp; Lash Bar</p><a target="_blank" rel="noopener" href="https://blashkingroup.glossify.id/booking/pwtblashkin" class="mt-5 inline-flex text-xs font-bold underline underline-offset-4">Reservasi Solo ↗</a></div></article>
+        <article class="glossy-card depth-card reveal group flex min-h-[320px] flex-col rounded-3xl border p-6 justify-between"><div class="mt-auto"><p class="font-display text-2xl">Blinks Brow Bar</p><p class="mt-2 font-display text-xs italic leading-5 text-taupe">Semarang · Brow &amp; Lash Bar</p><a target="_blank" rel="noopener" href="https://blashkingroup.glossify.id/booking/blinksbrowbarsmg" class="mt-5 inline-flex text-xs font-bold underline underline-offset-4">Reservasi Semarang ↗</a></div></article>
+      </div></div></section>
+
+    <section id="layanan" class="glossy-card mx-auto my-10 max-w-7xl rounded-[2rem] px-5 py-20 lg:my-14 lg:px-8 lg:py-28"><div class="reveal"><p class="text-[11px] font-bold uppercase tracking-[.22em] text-taupe">03 · Treatments &amp; Value Bundles</p><h2 class="mt-3 font-display text-4xl sm:text-5xl">Ritual pilihan, hasil yang <em>terasa.</em></h2></div><div class="mt-10 grid gap-5 lg:grid-cols-3">
+      <article class="glossy-card depth-card reveal overflow-hidden rounded-3xl border"><div class="placeholder aspect-[4/3] overflow-hidden"><img src="assets/treatments/treatment-1.jpg" alt="Brow Styling" class="h-full w-full object-cover transition duration-700 hover:scale-105"/></div><div class="p-6"><h3 class="font-display text-2xl">Brow Styling</h3><p class="treatment-copy mt-2 text-sm leading-6 text-taupe">Pembingkaian alis yang terukur untuk menyempurnakan karakter wajah tanpa kehilangan kesan alami.</p></div></article>
+      <article class="glossy-card depth-card reveal overflow-hidden rounded-3xl border"><div class="placeholder aspect-[4/3] overflow-hidden"><img src="assets/treatments/treatment-2.jpg" alt="Hard Waxing" class="h-full w-full object-cover transition duration-700 hover:scale-105"/></div><div class="p-6"><h3 class="font-display text-2xl">Hard Waxing</h3><p class="treatment-copy mt-2 text-sm leading-6 text-taupe">Pendekatan waxing yang mengutamakan kenyamanan, kebersihan, dan perhatian pada kulit sensitif.</p></div></article>
+      <article class="glossy-card depth-card reveal overflow-hidden rounded-3xl border"><div class="placeholder aspect-[4/3] overflow-hidden"><img src="assets/treatments/treatment-3.jpg" alt="Lash Treatments" class="h-full w-full object-cover transition duration-700 hover:scale-105"/></div><div class="p-6"><h3 class="font-display text-2xl">Lash Treatments</h3><p class="treatment-copy mt-2 text-sm leading-6 text-taupe">Dari Keratin Lashlift hingga perawatan detail untuk tampilan mata yang lebih terbuka dan segar.</p></div></article>
+    </div><div class="glossy-card depth-card reveal mt-5 grid overflow-hidden rounded-3xl border lg:grid-cols-[.75fr_1.25fr]"><div class="placeholder min-h-56"><img src="assets/treatments/promo-bundle.jpg" alt="Paket Hemat Blashkin Space" class="h-full w-full object-cover"/></div><div class="p-8 sm:p-10"><p class="text-[11px] font-bold uppercase tracking-[.18em] text-taupe">Paket Hemat / Special Value Bundles</p><h3 class="mt-4 font-display text-3xl sm:text-4xl">Perawatan yang lebih lengkap, dalam satu momen yang <em>lebih bernilai.</em></h3><p class="mt-4 max-w-xl text-sm leading-7 text-taupe">Temukan kombinasi perawatan bulanan pilihan kami. Detail paket, ketersediaan, dan ketentuan dapat dikonfirmasi langsung melalui studio pilihan Anda.</p><a href="#lokasi" class="mt-6 inline-block rounded-full bg-ink px-5 py-3 text-xs font-bold text-white">Lihat studio pilihan</a></div></div></section>
+
+    <!-- JOURNAL & REELS: Geser Horizontal ke Samping & Play Button di Tengah -->
+    <section id="journal" class="border-y border-line bg-[#201f1d] px-5 py-20 text-ivory lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="reveal flex flex-wrap items-end justify-between gap-5 mb-10">
+          <div><p class="text-[11px] font-bold uppercase tracking-[.22em] text-[#cbbba9]">04 · The Blashkin Journal &amp; Reels</p><h2 class="mt-3 font-display text-4xl sm:text-5xl">Potongan cerita dari <em>studio.</em></h2></div>
+          <p class="max-w-sm text-sm leading-6 text-white/60">Update visual, inspirasi perawatan, dan momen di balik setiap detail.</p>
         </div>
         
-        <button class="btn" style="background:#888; margin-top:10px; box-shadow:none;" onclick="batalPin()">Cancel</button>
-    </div>
-
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loading-view">
-        <div class="spinner"></div>
-        <div style="font-size: 18px; font-weight: 600; color: #111;">Processing Transfer...</div>
-        <div style="font-size: 14px; color: #777; margin-top: 6px;">Connecting to TikTok Live servers...</div>
-    </div>
-
-    <!-- Success Screen -->
-    <div class="success-screen" id="success-view">
-        <div class="success-icon">✓</div>
-        <div class="success-title">Exchange Completed!</div>
-        <div class="success-subtitle" id="exchanged-desc">You exchanged for <img src="coin.png" class="tiktok-coin-img" alt="coin"> 4,000,000 Coins</div>
-
-        <div class="details-box">
-            <div class="details-row">
-                <span class="label-detail">Recipient</span>
-                <span id="res-user" class="highlight-red">@username</span>
-            </div>
-            <div class="details-row">
-                <span class="label-detail">Coins Exchanged</span>
-                <span id="res-coins" class="highlight-bold">4,000,000 Coins</span>
-            </div>
-            <div class="details-row">
-                <span class="label-detail">Deducted Amount</span>
-                <span id="res-amount" class="highlight-bold">$48,400.00</span>
-            </div>
-            <div class="details-row">
-                <span class="label-detail">Time</span>
-                <span id="res-time" style="color:#333; font-weight:500;">24/09/2026, 11:23:36</span>
-            </div>
+        <!-- Wadah Geser Ke Samping (Horizontal Scroll) -->
+        <div class="reels-container">
+          <button class="reel reel-card depth-card reveal group relative aspect-[9/16] overflow-hidden rounded-2xl border border-white/20 bg-[#3a3530] text-left shrink-0" data-video="assets/reels/reel-1.mp4" aria-label="Putar Journal 01"><img class="reel-cover" src="assets/reels/cover-1.jpg" alt="Cover 1" /><span class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></span><span class="absolute left-4 top-4 text-[10px] tracking-[.16em]">JOURNAL 01</span><span class="absolute inset-0 m-auto grid h-12 w-12 place-items-center rounded-full border border-white/80 bg-black/20 backdrop-blur-sm transition group-hover:scale-110">▶</span></button>
+          <button class="reel reel-card depth-card reveal group relative aspect-[9/16] overflow-hidden rounded-2xl border border-white/20 bg-[#4a4239] text-left shrink-0" data-video="assets/reels/reel-2.mp4" aria-label="Putar Journal 02"><img class="reel-cover" src="assets/reels/cover-2.jpg" alt="Cover 2" /><span class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></span><span class="absolute left-4 top-4 text-[10px] tracking-[.16em]">JOURNAL 02</span><span class="absolute inset-0 m-auto grid h-12 w-12 place-items-center rounded-full border border-white/80 bg-black/20 backdrop-blur-sm transition group-hover:scale-110">▶</span></button>
+          <button class="reel reel-card depth-card reveal group relative aspect-[9/16] overflow-hidden rounded-2xl border border-white/20 bg-[#574a3d] text-left shrink-0" data-video="assets/reels/reel-3.mp4" aria-label="Putar Journal 03"><img class="reel-cover" src="assets/reels/cover-3.jpg" alt="Cover 3" /><span class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></span><span class="absolute left-4 top-4 text-[10px] tracking-[.16em]">JOURNAL 03</span><span class="absolute inset-0 m-auto grid h-12 w-12 place-items-center rounded-full border border-white/80 bg-black/20 backdrop-blur-sm transition group-hover:scale-110">▶</span></button>
+          <button class="reel reel-card depth-card reveal group relative aspect-[9/16] overflow-hidden rounded-2xl border border-white/20 bg-[#3d3935] text-left shrink-0" data-video="assets/reels/reel-4.mp4" aria-label="Putar Journal 04"><img class="reel-cover" src="assets/reels/cover-4.jpg" alt="Cover 4" /><span class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></span><span class="absolute left-4 top-4 text-[10px] tracking-[.16em]">JOURNAL 04</span><span class="absolute inset-0 m-auto grid h-12 w-12 place-items-center rounded-full border border-white/80 bg-black/20 backdrop-blur-sm transition group-hover:scale-110">▶</span></button>
+          <button class="reel reel-card depth-card reveal group relative aspect-[9/16] overflow-hidden rounded-2xl border border-white/20 bg-[#3d3935] text-left shrink-0" data-video="assets/reels/reel-5.mp4" aria-label="Putar Journal 05"><img class="reel-cover" src="assets/reels/cover-5.jpg" alt="Cover 5" /><span class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></span><span class="absolute left-4 top-4 text-[10px] tracking-[.16em]">JOURNAL 05</span><span class="absolute inset-0 m-auto grid h-12 w-12 place-items-center rounded-full border border-white/80 bg-black/20 backdrop-blur-sm transition group-hover:scale-110">▶</span></button>
         </div>
+      </div>
+    </section>
 
-        <button class="btn" onclick="resetForm()">Make Another Exchange</button>
-    </div>
-</div>
+    <!-- LOKASI STUDIO (Dengan Logo Bulat Agak Besar Menggantikan "Buka Hari Ini") -->
+    <section id="lokasi" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+      <div class="reveal">
+        <p class="text-[11px] font-bold uppercase tracking-[.22em] text-taupe">05 · Lokasi Studio</p>
+        <h2 class="mt-3 font-display text-4xl sm:text-5xl">Dekat dengan ritual <em>Anda.</em></h2>
+        <p class="mt-4 max-w-2xl text-sm leading-7 text-ink/65">Semua studio beroperasi setiap hari, pukul 11.00–19.00 WIB. Gunakan tautan peta untuk melihat alamat dan rute terkini.</p>
+      </div>
+      <div class="mt-10 grid gap-5 lg:grid-cols-2">
+        <!-- Studio 1: Blashkin Jogja -->
+        <article class="reveal rounded-3xl border border-line p-6 sm:p-8 flex flex-col justify-between">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-[.18em] text-taupe">Yogyakarta</p>
+              <h3 class="mt-2 font-display text-3xl">Blashkin Studio</h3>
+            </div>
+            <div class="location-logo-circle"><img src="assets/logos/logo-blashkin.png" alt="Blashkin" onerror="this.style.display='none'" /></div>
+          </div>
+          <p class="mt-5 text-sm leading-6 text-ink/65">Brow &amp; Lash Specialist · Yogyakarta<br />Alamat lengkap &amp; rute tersedia melalui Google Maps.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/qugpV9MkysmAEe2i8" class="rounded-full border border-ink px-4 py-2.5 text-xs font-bold">Lihat Peta ↗</a>
+            <a target="_blank" rel="noopener" href="https://blashkingroup.glossify.id/booking/blashkinStudioConcatJogja" class="rounded-full bg-ink px-4 py-2.5 text-xs font-bold text-white">Book Now</a>
+          </div>
+        </article>
 
-<script>
-    let currentBalanceNumeric = 54681922.30;
-    let currentCoinsNumeric = 4519167132;
-    const CORRECT_PIN = "257891";
+        <!-- Studio 2: Waxroom Jogja -->
+        <article class="reveal rounded-3xl border border-line p-6 sm:p-8 flex flex-col justify-between">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-[.18em] text-taupe">Yogyakarta</p>
+              <h3 class="mt-2 font-display text-3xl">Waxroom Skinbar</h3>
+            </div>
+            <div class="location-logo-circle"><img src="assets/logos/logo-waxroom.png" alt="Waxroom" onerror="this.style.display='none'" /></div>
+          </div>
+          <p class="mt-5 text-sm leading-6 text-ink/65">Waxing &amp; Intimate Care · Yogyakarta<br />Alamat lengkap &amp; rute tersedia melalui Google Maps.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/qugpV9MkysmAEe2i8" class="rounded-full border border-ink px-4 py-2.5 text-xs font-bold">Lihat Peta ↗</a>
+            <a target="_blank" rel="noopener" href="https://blashkingroup.glossify.id/booking/waxroomByBlashkin" class="rounded-full bg-ink px-4 py-2.5 text-xs font-bold text-white">Book Now</a>
+          </div>
+        </article>
 
-    function playTingSound() {
-        try {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.3);
-            
-            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
-            
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.6);
-        } catch (e) {}
-    }
+        <!-- Studio 3: Blinks Solo -->
+        <article class="reveal rounded-3xl border border-line p-6 sm:p-8 flex flex-col justify-between">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-[.18em] text-taupe">Surakarta / Solo</p>
+              <h3 class="mt-2 font-display text-3xl">Blinks Brow Bar</h3>
+            </div>
+            <div class="location-logo-circle"><img src="assets/logos/logo-blinks.png" alt="Blinks Solo" onerror="this.style.display='none'" /></div>
+          </div>
+          <p class="mt-5 text-sm leading-6 text-ink/65">Brow &amp; Lash Bar · Solo<br />Alamat lengkap &amp; rute tersedia melalui Google Maps.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/x1tMYpt878geZTMSA" class="rounded-full border border-ink px-4 py-2.5 text-xs font-bold">Lihat Peta ↗</a>
+            <a target="_blank" rel="noopener" href="https://blashkingroup.glossify.id/booking/pwtblashkin" class="rounded-full bg-ink px-4 py-2.5 text-xs font-bold text-white">Book Now</a>
+          </div>
+        </article>
 
-    function formatCoinInput(input) {
-        let value = input.value.replace(/\D/g, "");
-        if (value !== "") {
-            value = Number(value).toLocaleString('id-ID');
-        }
-        input.value = value;
-    }
+        <!-- Studio 4: Blinks Semarang -->
+        <article class="reveal rounded-3xl border border-line p-6 sm:p-8 flex flex-col justify-between">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-[11px] font-bold uppercase tracking-[.18em] text-taupe">Semarang</p>
+              <h3 class="mt-2 font-display text-3xl">Blinks Brow Bar</h3>
+            </div>
+            <div class="location-logo-circle"><img src="assets/logos/logo-blinks.png" alt="Blinks Semarang" onerror="this.style.display='none'" /></div>
+          </div>
+          <p class="mt-5 text-sm leading-6 text-ink/65">Brow &amp; Lash Bar · Semarang<br />Alamat lengkap &amp; rute tersedia melalui Google Maps.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/RxGqKPcrEFvfWJeA6" class="rounded-full border border-ink px-4 py-2.5 text-xs font-bold">Lihat Peta ↗</a>
+            <a target="_blank" rel="noopener" href="https://blashkingroup.glossify.id/booking/blinksbrowbarsmg" class="rounded-full bg-ink px-4 py-2.5 text-xs font-bold text-white">Book Now</a>
+          </div>
+        </article>
+      </div>
+    </section>
 
-    function handleSearch(val) {
-        const cleanVal = val.trim().replace('@', '');
-        const dropdown = document.getElementById("search-dropdown");
-        const accountBox = document.getElementById("account-suggestions");
+    <section class="border-y border-line bg-[#f3eee6] px-5 py-20 lg:px-8"><div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.7fr_1.3fr]"><div class="reveal"><p class="text-[11px] font-bold uppercase tracking-[.22em] text-taupe">06 · Booking Policies</p><h2 class="mt-3 font-display text-4xl leading-tight sm:text-5xl">Sebelum Anda <em>datang.</em></h2><p class="mt-5 max-w-sm text-sm leading-7 text-ink/65">Kami merangkum hal-hal penting agar waktu Anda di studio berjalan nyaman dan tepat.</p></div><div class="reveal divide-y divide-line border-y border-line"><div class="faq-item"><button class="faq-toggle flex w-full items-center justify-between py-5 text-left text-sm font-bold">Kebijakan DP<span class="faq-icon text-2xl font-normal transition">+</span></button><div class="faq-answer"><div><p class="pb-5 text-sm leading-7 text-ink/65">DP diperlukan untuk mengamankan slot reservasi. Nominal dan metode pembayaran akan diinformasikan oleh admin studio saat konfirmasi.</p></div></div></div><div class="faq-item"><button class="faq-toggle flex w-full items-center justify-between py-5 text-left text-sm font-bold">Toleransi keterlambatan<span class="faq-icon text-2xl font-normal transition">+</span></button><div class="faq-answer"><div><p class="pb-5 text-sm leading-7 text-ink/65">Mohon tiba tepat waktu. Keterlambatan dapat memengaruhi durasi layanan dan ketersediaan slot berikutnya.</p></div></div></div><div class="faq-item"><button class="faq-toggle flex w-full items-center justify-between py-5 text-left text-sm font-bold">Reschedule reservasi<span class="faq-icon text-2xl font-normal transition">+</span></button><div class="faq-answer"><div><p class="pb-5 text-sm leading-7 text-ink/65">Untuk perubahan jadwal, silakan hubungi admin cabang sesegera mungkin. Kebijakan reschedule mengikuti ketentuan studio terkait.</p></div></div></div></div></div></section>
+  </main>
 
-        if (cleanVal.length > 0) {
-            dropdown.style.display = "block";
-
-            accountBox.innerHTML = `
-                <div class="search-item" onclick="selectUser('${cleanVal}')">
-                    <img src="default-avatar.png" alt="avatar" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=fallback'">
-                    <div>
-                        <div class="s-text">@${cleanVal}</div>
-                        <div class="s-sub">Tap to select account</div>
-                    </div>
-                </div>
-            `;
-        } else {
-            dropdown.style.display = "none";
-        }
-    }
-
-    function selectUser(username) {
-        document.getElementById("target-user").value = username;
-        document.getElementById("search-dropdown").style.display = "none";
-    }
-
-    document.addEventListener("click", function(e) {
-        if (!e.target.closest('.form-group')) {
-            document.getElementById("search-dropdown").style.display = "none";
-        }
-    });
-
-    function validasiForm() {
-        const rawInput = document.getElementById("target-user").value.trim();
-        const coinInputStr = document.getElementById("coin-amount").value.trim();
-
-        if (rawInput === "" || coinInputStr === "") {
-            alert("Please enter the recipient username and coin amount first!");
-            return;
-        }
-
-        document.getElementById("form-view").style.display = "none";
-        document.getElementById("pin-view").style.display = "block";
-        document.getElementById("p1").focus();
-    }
-
-    function moveFocus(current, nextFieldId) {
-        if (current.value.length === 1) {
-            document.getElementById(nextFieldId).focus();
-        }
-    }
-
-    function verifikasiPin(current) {
-        if (current.value.length === 1) {
-            let enteredPin = 
-                document.getElementById("p1").value +
-                document.getElementById("p2").value +
-                document.getElementById("p3").value +
-                document.getElementById("p4").value +
-                document.getElementById("p5").value +
-                document.getElementById("p6").value;
-
-            if (enteredPin.length === 6) {
-                if (enteredPin === CORRECT_PIN) {
-                    document.getElementById("pin-view").style.display = "none";
-                    document.getElementById("loading-view").style.display = "block";
-
-                    setTimeout(() => {
-                        prosesExchangeFinal();
-                    }, 3000);
-                } else {
-                    alert("Incorrect PIN! Please try again.");
-                    resetPinInputs();
-                }
-            }
-        }
-    }
-
-    function batalPin() {
-        resetPinInputs();
-        document.getElementById("pin-view").style.display = "none";
-        document.getElementById("form-view").style.display = "block";
-    }
-
-    function resetPinInputs() {
-        ['p1','p2','p3','p4','p5','p6'].forEach(id => document.getElementById(id).value = "");
-        document.getElementById("p1").focus();
-    }
-
-    function prosesExchangeFinal() {
-        const rawInput = document.getElementById("target-user").value.trim();
-        const coinInputStr = document.getElementById("coin-amount").value.trim();
-
-        const cleanUsername = rawInput.replace('@', '');
-        const formattedUser = '@' + cleanUsername;
-        
-        const numCoins = Number(coinInputStr.replace(/\./g, ''));
-        const formattedCoins = numCoins.toLocaleString('id-ID') + " Coins";
-        
-        const deductedDolar = numCoins * 0.0121;
-        const calculatedDeduction = "$" + deductedDolar.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-        currentBalanceNumeric -= deductedDolar;
-        if (currentBalanceNumeric < 0) currentBalanceNumeric = 0;
-
-        currentCoinsNumeric -= numCoins;
-        if (currentCoinsNumeric < 0) currentCoinsNumeric = 0;
-        
-        const formattedBalance = "$" + currentBalanceNumeric.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        document.getElementById("display-balance").innerText = formattedBalance;
-        document.getElementById("sub-balance-text").innerHTML = `= ${formattedBalance} (<img src="coin.png" class="tiktok-coin-img" alt="coin"> ${currentCoinsNumeric.toLocaleString('id-ID')})`;
-
-        const now = new Date();
-        const timeString = now.toLocaleDateString('en-US') + ", " + now.toLocaleTimeString('en-US');
-
-        document.getElementById("exchanged-desc").innerHTML = `You exchanged for <img src="coin.png" class="tiktok-coin-img" alt="coin"> ${formattedCoins}`;
-        document.getElementById("res-user").innerText = formattedUser;
-        document.getElementById("res-coins").innerText = formattedCoins;
-        document.getElementById("res-amount").innerText = calculatedDeduction;
-        document.getElementById("res-time").innerText = timeString;
-
-        document.getElementById("loading-view").style.display = "none";
-        document.getElementById("success-view").style.display = "block";
-
-        playTingSound();
-    }
-
-    function resetForm() {
-        document.getElementById("target-user").value = "";
-        document.getElementById("coin-amount").value = "";
-        resetPinInputs();
-        document.getElementById("success-view").style.display = "none";
-        document.getElementById("form-view").style.display = "block";
-    }
-</script>
-
+  <footer class="bg-ink px-5 pb-24 pt-16 text-ivory lg:px-8 lg:pb-10"><div class="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 lg:grid-cols-4"><div><p class="text-sm font-bold tracking-[.19em]">BLASHKIN SPACE</p><p class="mt-2 text-[9px] uppercase tracking-[.18em] text-[#cbbba9]">A Beauty Specialist Group</p><p class="mt-5 max-w-xs text-sm leading-6 text-white/60">Kolektif studio kecantikan spesialis untuk setiap detail yang berarti.</p></div><div><p class="text-xs font-bold text-[#cbbba9]">TAUTAN CEPAT</p><div class="mt-4 grid gap-3 text-sm text-white/70"><a href="#tentang">Tentang Kami</a><a href="#brand">Brand Kami</a><a href="#layanan">Layanan</a><a href="#lokasi">Lokasi Studio</a></div></div><div><p class="text-xs font-bold text-[#cbbba9]">KONTAK ADMIN</p><div class="mt-4 grid gap-3 text-sm text-white/70"><a target="_blank" rel="noopener" href="https://wa.me/6285876702934">Jogja · WhatsApp ↗</a><a target="_blank" rel="noopener" href="https://wa.me/6281225012357">Solo · WhatsApp ↗</a><a target="_blank" rel="noopener" href="https://wa.me/62881024109682">Semarang · WhatsApp ↗</a></div></div><div><p class="text-xs font-bold text-[#cbbba9]">IKUTI PERJALANAN KAMI</p><div class="mt-4 grid gap-3 text-sm text-white/70"><a target="_blank" rel="noopener" href="https://www.instagram.com/blashkinbrowlash?utm_source=ig_web_button_share_sheet&srtk=ZDNlZDc0MzIxNw==">Instagram Blashkin ↗</a><a target="_blank" rel="noopener" href="https://www.instagram.com/waxroomskinbar?utm_source=ig_web_button_share_sheet&dlrf=ZDNlZDc0MzIxNw==">Instagram Waxroom ↗</a><a target="_blank" rel="noopener" href="https://www.instagram.com/blinksbrowbar?utm_source=ig_web_button_share_sheet&mdxt=ZDNlZDc0MzIxNw==">Instagram Blinks Solo ↗</a><a target="_blank" rel="noopener" href="https://www.instagram.com/blinksbrow.smg?utm_source=ig_web_button_share_sheet&vrfl=ZDNlZDc0MzIxNw==">Instagram Blinks Semarang ↗</a><a target="_blank" rel="noopener" href="https://www.tiktok.com/@blashkinbrowlash?_r=1&_t=ZS-9AsCI3mljuc">TikTok Blashkin ↗</a><a target="_blank" rel="noopener" href="https://www.tiktok.com/@waxroomjogja?_r=1&_t=ZS-9AsCNTjdzUY">TikTok Waxroom ↗</a><a target="_blank" rel="noopener" href="https://www.tiktok.com/@blinksbrowbar?_r=1&_t=ZS-9AsCPieI90p">TikTok Blinks Solo ↗</a><a target="_blank" rel="noopener" href="https://www.tiktok.com/@blinksbrowbar.smg?_r=1&_t=ZS-9AsCPtwquv4">TikTok Blinks Semarang ↗</a></div></div></div><div class="mx-auto mt-14 flex max-w-7xl flex-col justify-between gap-3 border-t border-white/15 pt-6 text-[11px] text-white/45 sm:flex-row"><p>© 2026 Blashkin Space. Seluruh hak cipta dilindungi.</p><p>Setiap hari · 11.00–19.00 WIB</p></div></footer>
+  <div class="fixed inset-x-4 bottom-4 z-50 sm:hidden"><a href="#lokasi" class="flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-4 text-xs font-bold text-white shadow-2xl">Book via Glossify <span>↗</span></a></div>
+  <dialog id="video-dialog" class="m-auto w-[min(90vw,380px)] overflow-hidden rounded-3xl bg-black p-0 backdrop:bg-black/70"><button id="close-video" class="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-white/90 text-lg" aria-label="Tutup video">×</button><video id="reel-video" controls playsinline class="aspect-[9/16] w-full"></video></dialog>
+  <script>
+    const menuButton = document.getElementById('menu-button'), mobileMenu = document.getElementById('mobile-menu');
+    menuButton.addEventListener('click', () => { const open = mobileMenu.classList.toggle('hidden') === false; menuButton.setAttribute('aria-expanded', open); });
+    document.querySelectorAll('#mobile-menu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+    document.querySelectorAll('.faq-toggle').forEach(button => button.addEventListener('click', () => button.closest('.faq-item').classList.toggle('faq-open')));
+    const observer = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }), { threshold: .08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('#lokasi article').forEach(card => card.classList.add('glossy-card', 'depth-card'));
+    const dialog = document.getElementById('video-dialog'), video = document.getElementById('reel-video');
+    document.addEventListener('click', event => { const reel = event.target.closest('.reel'); if (!reel) return; video.src = reel.dataset.video; dialog.showModal(); video.play().catch(() => {}); });
+    document.getElementById('close-video').addEventListener('click', () => { video.pause(); dialog.close(); });
+    dialog.addEventListener('click', e => { if (e.target === dialog) { video.pause(); dialog.close(); } });
+  </script>
 </body>
 </html>
